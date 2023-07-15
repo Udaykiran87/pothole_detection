@@ -1,3 +1,6 @@
 ultralytics
 dvc
+notebook
+python-box
+ensure
 -e .
