@@ -3,7 +3,7 @@ from box.exceptions import BoxValueError  # Import the BoxValueError exception f
 import yaml  # Import the yaml module for working with YAML files
 from potholeDetector import logger  # Import the logger from the potholeDetector module
 import json  # Import the json module for working with JSON data
-import joblib  # Import the joblib module for serialization and deserialization of Python objects
+# import joblib  # Import the joblib module for serialization and deserialization of Python objects
 from ensure import ensure_annotations  # Import the ensure_annotations decorator for enforcing type annotations
 from box import ConfigBox  # Import the ConfigBox class from the box module for working with configuration settings
 from pathlib import Path  # Import the Path class from the pathlib module for working with file paths
@@ -51,3 +51,20 @@ def create_directories(path_to_directories: list, verbose=True):
         os.makedirs(path, exist_ok=True)
         if verbose:
             logger.info(f"Created directory at: {path}")
+
+
+
+@ensure_annotations
+def get_size(path: Path) -> str:
+    """
+    Get the size of a file in KB.
+
+    Args:
+        path (Path): Path of the file.
+
+    Returns:
+        str: Size in KB.
+    """
+    size_in_kb = round(os.path.getsize(path) / 1024)  # Calculate the size in KB
+    return f"~ {size_in_kb} KB"  # Return the size as a string with the "KB" suffix
+
