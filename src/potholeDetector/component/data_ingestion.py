@@ -9,6 +9,8 @@ from pathlib import Path  # Import the Path class from pathlib
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
+        """    def extract_zip_file(self):
+        """
         """
         Initializes the DataIngestion class.
 
@@ -35,12 +37,26 @@ class DataIngestion:
 
     def extract_zip_file(self):
         """
-        Extracts the zip file into the unzip directory.
-
-        Returns:
-            None
+        Extracts the zip file into the data directory and renames the extracted folder.
         """
-        unzip_path = self.config.unzip_dir  # Get the unzip directory path
-        os.makedirs(unzip_path, exist_ok=True)  # Create the unzip directory if it doesn't exist
-        with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:  # Open the zip file
-            zip_ref.extractall(unzip_path)  # Extract all files to the unzip directory
+        print("i am here")
+        unzip_path = self.config.unzip_dir
+        unzip_folder = self.config.unzip_folder
+        os.makedirs(unzip_path, exist_ok=True)
+        with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
+            zip_ref.extractall(unzip_path)
+            zip_infos = zip_ref.infolist()
+            final_folder_name = zip_infos[0].filename            
+
+        # Get the extracted folder name
+        # extracted_folder_name = os.path.splitext(os.path.basename(self.config.local_data_file))[0]
+        print(final_folder_name)
+
+        # Get the full path of the extracted folder
+        extracted_folder_full_path = os.path.join(unzip_path, final_folder_name)
+
+
+        # Rename the extracted folder
+        renamed_folder_path = os.path.join(unzip_path, unzip_folder)
+        print(extracted_folder_full_path,renamed_folder_path)
+        os.rename(extracted_folder_full_path, renamed_folder_path)
