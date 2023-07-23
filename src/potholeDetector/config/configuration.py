@@ -1,7 +1,8 @@
 # Import required modules and classes
 from potholeDetector.constants import *  # Import constants module
 from potholeDetector.utils.common import *  # Import common utilities module
-from potholeDetector.entity.config_entity import DataIngestionConfig  # Import DataIngestionConfig entity class
+from potholeDetector.entity.config_entity import (DataIngestionConfig, # Import DataIngestionConfig entity class
+                                                  DataValidatorConfig) # Import DataValidatorConfig entity class
 
 
 class ConfigurationManager:
@@ -42,3 +43,23 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+
+    def get_data_validation_config(self) -> DataValidatorConfig:
+        """
+        Retrieves the data validation configuration from the config file.
+
+        Returns:
+            DataValidatorConfig: Data validation configuration object.
+        """
+        config = self.config.data_validation  # Get the data validation configuration
+
+        # Create a DataIngestionConfig object with the extracted configuration values
+        data_validation_config = DataValidatorConfig(
+            data_dir=config.data_dir,
+            data_folder=config.data_folder,
+            train_folder=config.train_folder,
+            val_folder=config.val_folder,
+            sub_dirs=config.sub_dirs,      
+        )
+
+        return data_validation_config
