@@ -1,8 +1,11 @@
 # Import required modules and classes
 from potholeDetector.constants import *  # Import constants module
 from potholeDetector.utils.common import *  # Import common utilities module
-from potholeDetector.entity.config_entity import (DataIngestionConfig, # Import DataIngestionConfig entity class
-                                                  DataValidatorConfig) # Import DataValidatorConfig entity class
+from potholeDetector.entity.config_entity import (
+                                                    DataIngestionConfig, # Import DataIngestionConfig entity class
+                                                    DataValidatorConfig, # Import DataValidatorConfig entity class
+                                                    PrepareBaseModelConfig, # Import PrepareBaseModelConfig entity class
+                                                  ) 
 
 
 class ConfigurationManager:
@@ -39,7 +42,8 @@ class ConfigurationManager:
             root_dir=config.root_dir,
             source_URL=config.source_URL,
             local_data_file=config.local_data_file,
-            unzip_dir=config.unzip_dir
+            unzip_dir=config.unzip_dir,
+            unzip_folder=config.unzip_folder
         )
 
         return data_ingestion_config
@@ -63,3 +67,40 @@ class ConfigurationManager:
         )
 
         return data_validation_config
+    
+
+    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+        """
+        Get the configuration for preparing the base model.
+
+        Returns:
+            PrepareBaseModelConfig: An instance of PrepareBaseModelConfig containing the configuration for
+            preparing the base model.
+        """
+        # Retrieve the configuration for preparing the base model from the main configuration
+        config = self.config.prepare_base_model
+
+        # Retrieve the parameters for training from the main parameters
+        params = self.params.training
+
+        # Create the required directories if they do not exist
+        create_directories([config.root_dir, config.weights_dir])
+
+        # Create an instance of PrepareBaseModelConfig with the retrieved configuration
+        prepare_base_model_config = PrepareBaseModelConfig(
+            root_dir=Path(config.root_dir),
+            weights_dir=Path(config.weights_dir),
+            download_url=config.download_url,
+            task=params.task,
+            mode=params.mode,
+            model=params.model,
+            imgsz=params.imgsz,
+            data=params.data,
+            epochs=params.epochs,
+            batch=params.batch,
+            name=params.name,
+        )
+
+        # Return the PrepareBaseModelConfig instance
+        return prepare_base_model_config
+  

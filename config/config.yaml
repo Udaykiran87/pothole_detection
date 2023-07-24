@@ -19,3 +19,8 @@ data_validation:
   sub_dirs: # list of sub directories inside train and valid
   - images
   - labels
+
+prepare_base_model:
+  root_dir: artifacts/prepare_base_model  # Root directory for base model artifacts
+  weights_dir: artifacts/prepare_base_model/weights # weights directory to store pretrained yolo weights
+  download_url: https://github.com/ultralytics/assets/releases/download/v0.0.0/

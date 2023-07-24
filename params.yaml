@@ -1,1 +1,9 @@
-key: val
+training:
+  task: detect
+  mode: train
+  model: yolov8n.pt
+  imgsz: 1280
+  data: pothole_v8.yaml
+  epochs: 50
+  batch: 8
+  name: yolov8n_v8_50e
