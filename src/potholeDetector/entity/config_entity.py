@@ -48,26 +48,10 @@ class PrepareBaseModelConfig:
         root_dir (Path): The root directory path for preparing the base model.
         weights_dir (Path): The directory path to store the downloaded model weights.
         download_url (str): The URL to download the base model weights.
-        task (str): The task for which the model will be used (e.g., object detection).
-        mode (str): The mode of the model preparation (e.g., train, test).
-        model (str): The specific model architecture to use.
-        imgsz (int): The image size used for the model (e.g., 416).
-        data (str): The type of data used for training the model (e.g., coco.yaml).
-        epochs (int): The number of training epochs for the model.
-        batch (int): The batch size used during training.
-        name (str): The name of the model.
     """
     root_dir: Path
     weights_dir: Path
     download_url: str
-    task: str
-    mode: str
-    model: str
-    imgsz: int
-    data: str
-    epochs: int
-    batch: int
-    name: str
 
 
 @dataclass(frozen=True)

@@ -81,9 +81,6 @@ class ConfigurationManager:
         # Retrieve the configuration for preparing the base model from the main configuration
         config = self.config.prepare_base_model
 
-        # Retrieve the parameters for training from the main parameters
-        params = self.params.training
-
         # Create the required directories if they do not exist
         create_directories([config.root_dir, config.weights_dir])
 
