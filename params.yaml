@@ -1,9 +1,12 @@
 training:
   task: detect
   mode: train
-  model: yolov8n.pt
+  # model: yolov8n.pt
+  model: artifacts/training/runs/yolov8n_v8_1e7/weights/best.pt
   imgsz: 1280
   data: pothole_v8.yaml
-  epochs: 50
-  batch: 8
-  name: yolov8n_v8_50e
+  epochs: 1
+  batch: 4
+  name: yolov8n_v8_1e
+  project: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
+  resume: False

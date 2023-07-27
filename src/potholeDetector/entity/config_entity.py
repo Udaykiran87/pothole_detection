@@ -68,3 +68,38 @@ class PrepareBaseModelConfig:
     epochs: int
     batch: int
     name: str
+
+
+@dataclass(frozen=True)
+class CustomTrainingConfig:
+    """
+    Data class representing the configuration for custom training.
+
+    Attributes:
+        root_dir (Path): The root directory path for custom training.
+        trained_weights_dir (Path): The directory where trained weights will be saved.
+        params_task (str): The task to perform during training (e.g., 'detect', 'segment', etc.).
+        params_mode (str): The training mode (e.g., 'train', 'val', etc.).
+        params_model (Path): The path to the model used for training.
+        params_imgsz (int): The size of the input images during training.
+        params_data (Path): The path to the data used for training.
+        params_epochs (int): The number of training epochs.
+        params_batch (int): The batch size used during training.
+        params_name (str): The name of the training session.
+        params_project (Path): The path to the project directory.
+        base_weight_dir (str): The directory containing the base weights.
+        params_resume (str): The path to the checkpoint file for resuming training.
+    """
+    root_dir: Path
+    trained_weights_dir: Path
+    params_task: str
+    params_mode: str
+    params_model: Path
+    params_imgsz: int
+    params_data: Path
+    params_epochs: int
+    params_batch: int
+    params_name: str
+    params_project: Path
+    base_weight_dir: str
+    params_resume: str

@@ -1,0 +1,7 @@
+path: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/data_ingestion/dataset/
+train: 'train/images'
+val: 'valid/images'
+ 
+# class names
+names: 
+  0: 'pothole'

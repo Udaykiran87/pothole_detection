@@ -5,6 +5,7 @@ from potholeDetector.entity.config_entity import (
                                                     DataIngestionConfig, # Import DataIngestionConfig entity class
                                                     DataValidatorConfig, # Import DataValidatorConfig entity class
                                                     PrepareBaseModelConfig, # Import PrepareBaseModelConfig entity class
+                                                    CustomTrainingConfig, # Import CustomTrainingConfig entity class
                                                   ) 
 
 
@@ -103,4 +104,31 @@ class ConfigurationManager:
 
         # Return the PrepareBaseModelConfig instance
         return prepare_base_model_config
-  
+    
+    def get_custom_training_config(self) -> CustomTrainingConfig:
+        config_training = self.config.training
+        config_prepare_base_model = self.config.prepare_base_model
+        params = self.params.training
+        create_directories([
+            self.config.artifacts_root, 
+            config_training.root_dir, 
+            config_training.trained_model_dir
+            ])
+
+        custom_training_config = CustomTrainingConfig(
+            root_dir=Path(config_training.root_dir),
+            trained_weights_dir=Path(config_training.trained_model_dir),
+            params_task=params.task,
+            params_mode=params.mode,
+            params_model=params.model,
+            params_imgsz=params.imgsz,
+            params_data=Path(params.data),
+            params_epochs=params.epochs,
+            params_batch=params.batch,
+            params_name=params.name,
+            params_project=Path(params.project),
+            base_weight_dir=config_prepare_base_model.weights_dir,  
+            params_resume=params.resume,    
+        )
+
+        return custom_training_config
