@@ -1,0 +1,54 @@
+# Define the stages of the DVC pipeline
+stages:
+
+  # Data Ingestion Stage
+  data_ingestion:
+    cmd: python src/potholeDetector/pipeline/stage_01_data_ingestion.py  # Command to run the data ingestion Python script
+    deps:
+      - src/potholeDetector/pipeline/stage_01_data_ingestion.py  # Dependency: Data ingestion Python script
+      - config/config.yaml  # Dependency: Configuration YAML file
+    outs:
+      - artifacts/data_ingestion/dataset  # Output: Data ingestion output directory
+
+  # Data Validation Stage
+  data_validation:
+    cmd: python src/potholeDetector/pipeline/stage_02_data_validation.py  # Command to run the data validation Python script
+    deps:
+      - src/potholeDetector/pipeline/stage_02_data_validation.py  # Dependency: Data validation Python script
+      - config/config.yaml  # Dependency: Configuration YAML file
+      - artifacts/data_ingestion/dataset  # Dependency: Data ingestion output directory
+    outs:
+      - artifacts/data_ingestion/dataset  # Output: Data validation output directory
+    always_changed:
+      - artifacts/data_ingestion/dataset  # Mark the output directory as always changed to force re-evaluation
+
+  # Prepare Base Model Stage
+  prepare_base_model:
+    cmd: python src/potholeDetector/pipeline/stage_03_prepare_base_model.py  # Command to run the prepare base model Python script
+    deps:
+      - src/potholeDetector/pipeline/stage_03_prepare_base_model.py  # Dependency: Prepare base model Python script
+      - config/config.yaml  # Dependency: Configuration YAML file
+    outs:
+      - artifacts/prepare_base_model/weights  # Output: Prepared base model weights directory
+
+  # Custom Training Stage
+  custom_training:
+    cmd: python src/potholeDetector/pipeline/stage_04_custom_training.py  # Command to run the custom training Python script
+    deps:
+      - src/potholeDetector/pipeline/stage_04_custom_training.py  # Dependency: Custom training Python script
+      - config/config.yaml  # Dependency: Configuration YAML file
+    params:
+      - config/params.yaml  # Parameters: Params YAML file
+    outs:
+      - artifacts/training/runs  # Output: Custom training results directory
+
+  # Model Evaluation Stage
+  model_evaluate:
+    cmd: python src/potholeDetector/pipeline/stage_05_validation.py  # Command to run the model evaluation Python script
+    deps:
+      - src/potholeDetector/pipeline/stage_05_validation.py  # Dependency: Model evaluation Python script
+      - config/config.yaml  # Dependency: Configuration YAML file
+    params:
+      - config/params.yaml  # Parameters: Params YAML file
+    outs:
+      - artifacts/validation/runs  # Output: Model evaluation results directory
