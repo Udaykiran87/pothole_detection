@@ -92,14 +92,6 @@ class ConfigurationManager:
             root_dir=Path(config.root_dir),
             weights_dir=Path(config.weights_dir),
             download_url=config.download_url,
-            task=params.task,
-            mode=params.mode,
-            model=params.model,
-            imgsz=params.imgsz,
-            data=params.data,
-            epochs=params.epochs,
-            batch=params.batch,
-            name=params.name,
         )
 
         # Return the PrepareBaseModelConfig instance
