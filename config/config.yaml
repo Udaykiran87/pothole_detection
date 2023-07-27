@@ -29,3 +29,7 @@ prepare_base_model:
 training:
   root_dir: artifacts/training  # Root directory for training artifacts
   trained_model_dir: artifacts/training/runs # Training directory
+
+validation:
+  root_dir: artifacts/validation  # Root directory for validation artifacts
+  validation_results_dir: artifacts/validation/runs # Validation directory

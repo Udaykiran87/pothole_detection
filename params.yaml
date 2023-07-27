@@ -10,3 +10,13 @@ training:
   name: yolov8n_v8_1e
   project: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
   resume: False
+
+# yolo task=detect mode=val model=runs/detect/yolov8m_v8_50e/weights/best.pt name=yolov8m_eval data=pothole_v8.yaml imgsz=1280
+evaluation:
+  task: detect
+  mode: val
+  model: artifacts/training/runs/yolov8n_v8_1e9/weights/best.pt
+  imgsz: 1280
+  # data: pothole_v8.yaml
+  name: yolov8n_eval
+  project: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/validation/runs

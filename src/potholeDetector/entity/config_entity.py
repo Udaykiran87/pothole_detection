@@ -103,3 +103,24 @@ class CustomTrainingConfig:
     params_project: Path
     base_weight_dir: str
     params_resume: str
+
+
+@dataclass(frozen=True)
+class ValidationConfig:
+    """
+    Data class representing the configuration for model validation.
+
+    Attributes:
+        params_task (str): The task type for the validation (e.g., 'detect', 'segment').
+        params_mode (str): The mode for the validation (e.g., 'val', 'test').
+        params_model (Path): The path to the model file for validation.
+        params_imgsz (int): The image size used for validation.
+        params_name (str): The name of the validation process or run.
+        params_project (Path): The path to the project directory.
+    """
+    params_task: str
+    params_mode: str
+    params_model: Path
+    params_imgsz: int
+    params_name: str
+    params_project: Path

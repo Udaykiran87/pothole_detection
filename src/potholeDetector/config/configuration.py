@@ -1,12 +1,12 @@
-# Import required modules and classes
 from potholeDetector.constants import *  # Import constants module
 from potholeDetector.utils.common import *  # Import common utilities module
 from potholeDetector.entity.config_entity import (
-                                                    DataIngestionConfig, # Import DataIngestionConfig entity class
-                                                    DataValidatorConfig, # Import DataValidatorConfig entity class
-                                                    PrepareBaseModelConfig, # Import PrepareBaseModelConfig entity class
-                                                    CustomTrainingConfig, # Import CustomTrainingConfig entity class
-                                                  ) 
+    DataIngestionConfig,  # Import DataIngestionConfig entity class
+    DataValidatorConfig,  # Import DataValidatorConfig entity class
+    PrepareBaseModelConfig,  # Import PrepareBaseModelConfig entity class
+    CustomTrainingConfig,  # Import CustomTrainingConfig entity class
+    ValidationConfig,  # Import ValidationConfig entity class
+)
 
 
 class ConfigurationManager:
@@ -106,15 +106,26 @@ class ConfigurationManager:
         return prepare_base_model_config
     
     def get_custom_training_config(self) -> CustomTrainingConfig:
+        """
+        Get the configuration for custom training.
+
+        Returns:
+            CustomTrainingConfig: An instance of CustomTrainingConfig containing the configuration for
+            custom training.
+        """
+        # Retrieve the configuration for custom training from the main configuration
         config_training = self.config.training
         config_prepare_base_model = self.config.prepare_base_model
         params = self.params.training
+
+        # Create the required directories if they do not exist
         create_directories([
             self.config.artifacts_root, 
             config_training.root_dir, 
             config_training.trained_model_dir
-            ])
+        ])
 
+        # Create an instance of CustomTrainingConfig with the retrieved configuration
         custom_training_config = CustomTrainingConfig(
             root_dir=Path(config_training.root_dir),
             trained_weights_dir=Path(config_training.trained_model_dir),
@@ -131,4 +142,38 @@ class ConfigurationManager:
             params_resume=params.resume,    
         )
 
+        # Return the CustomTrainingConfig instance
         return custom_training_config
+    
+
+    def get_validation_config(self) -> ValidationConfig:
+        """
+        Get the configuration for validation.
+
+        Returns:
+            ValidationConfig: An instance of ValidationConfig containing the configuration for
+            validation.
+        """
+        # Retrieve the configuration for validation from the main configuration
+        config_validation = self.config.validation
+        params = self.params.evaluation
+
+        # Create the required directories if they do not exist
+        create_directories([
+            self.config.artifacts_root, 
+            config_validation.root_dir, 
+            config_validation.validation_results_dir
+        ])
+
+        # Create an instance of ValidationConfig with the retrieved configuration
+        validation_config = ValidationConfig(
+            params_task=params.task,
+            params_mode=params.mode,
+            params_model=params.model,
+            params_imgsz=params.imgsz,
+            params_name=params.name, 
+            params_project=params.project, 
+        )
+
+        # Return the ValidationConfig instance
+        return validation_config
