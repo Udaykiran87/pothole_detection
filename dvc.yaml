@@ -17,10 +17,7 @@ stages:
       - src/potholeDetector/pipeline/stage_02_data_validation.py  # Dependency: Data validation Python script
       - config/config.yaml  # Dependency: Configuration YAML file
       - artifacts/data_ingestion/dataset  # Dependency: Data ingestion output directory
-    outs:
-      - artifacts/data_ingestion/dataset  # Output: Data validation output directory
-    always_changed:
-      - artifacts/data_ingestion/dataset  # Mark the output directory as always changed to force re-evaluation
+    # always_changed: False  # Mark the output directory as always changed to force re-evaluation
 
   # Prepare Base Model Stage
   prepare_base_model:
@@ -28,6 +25,11 @@ stages:
     deps:
       - src/potholeDetector/pipeline/stage_03_prepare_base_model.py  # Dependency: Prepare base model Python script
       - config/config.yaml  # Dependency: Configuration YAML file
+      - artifacts/data_ingestion/dataset  # Dependency: Data ingestion output directory      
+      # - params.yaml
+    params:
+      - params.yaml:  # Parameters: Params YAML file
+        - training
     outs:
       - artifacts/prepare_base_model/weights  # Output: Prepared base model weights directory
 
@@ -38,7 +40,8 @@ stages:
       - src/potholeDetector/pipeline/stage_04_custom_training.py  # Dependency: Custom training Python script
       - config/config.yaml  # Dependency: Configuration YAML file
     params:
-      - config/params.yaml  # Parameters: Params YAML file
+      - params.yaml:  # Parameters: Params YAML file
+        - training
     outs:
       - artifacts/training/runs  # Output: Custom training results directory
 
@@ -49,6 +52,7 @@ stages:
       - src/potholeDetector/pipeline/stage_05_validation.py  # Dependency: Model evaluation Python script
       - config/config.yaml  # Dependency: Configuration YAML file
     params:
-      - config/params.yaml  # Parameters: Params YAML file
+      - params.yaml:  # Parameters: Params YAML file
+        - evaluation
     outs:
       - artifacts/validation/runs  # Output: Model evaluation results directory

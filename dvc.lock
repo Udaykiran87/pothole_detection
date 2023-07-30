@@ -1,0 +1,131 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/potholeDetector/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 6bb038ee1d8866faf7c071e58918c075
+      size: 1485
+    - path: src/potholeDetector/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: b5a68f1619c86d8cbf5e88200dc8942b
+      size: 1344
+    outs:
+    - path: artifacts/data_ingestion/dataset
+      hash: md5
+      md5: be1d7e05e70b8f9059f77bb3c2b447e0.dir
+      size: 2678055890
+      nfiles: 15541
+  data_validation:
+    cmd: python src/potholeDetector/pipeline/stage_02_data_validation.py
+    deps:
+    - path: artifacts/data_ingestion/dataset
+      hash: md5
+      md5: b55f056436d5c8e69629ec1ca28082fd.dir
+      size: 2676778872
+      nfiles: 15539
+    - path: config/config.yaml
+      hash: md5
+      md5: 6bb038ee1d8866faf7c071e58918c075
+      size: 1485
+    - path: src/potholeDetector/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 07d22b8ac651f11ca16e3ae530798209
+      size: 1361
+  prepare_base_model:
+    cmd: python src/potholeDetector/pipeline/stage_03_prepare_base_model.py
+    deps:
+    - path: artifacts/data_ingestion/dataset
+      hash: md5
+      md5: b55f056436d5c8e69629ec1ca28082fd.dir
+      size: 2676778872
+      nfiles: 15539
+    - path: config/config.yaml
+      hash: md5
+      md5: 6bb038ee1d8866faf7c071e58918c075
+      size: 1485
+    - path: src/potholeDetector/pipeline/stage_03_prepare_base_model.py
+      hash: md5
+      md5: 4dda5dd90d6edde5d57344567fc1d8da
+      size: 1344
+    params:
+      params.yaml:
+        training:
+          task: detect
+          mode: train
+          pre_trained_model: yolov8n.pt
+          imgsz: 1280
+          data: pothole_v8.yaml
+          epochs: 3
+          batch: 4
+          name: yolov8n_v8_3e
+          project: 
+            /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
+          resume: true
+          last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
+    outs:
+    - path: artifacts/prepare_base_model/weights
+      hash: md5
+      md5: 7d690bc32ecb163787f0cc3e8c7b9166.dir
+      size: 36711095
+      nfiles: 1
+  custom_training:
+    cmd: python src/potholeDetector/pipeline/stage_04_custom_training.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 6bb038ee1d8866faf7c071e58918c075
+      size: 1485
+    - path: src/potholeDetector/pipeline/stage_04_custom_training.py
+      hash: md5
+      md5: d100d9ef742e67c315fa62e61c364d1b
+      size: 1289
+    params:
+      params.yaml:
+        training:
+          task: detect
+          mode: train
+          pre_trained_model: yolov8n.pt
+          imgsz: 1280
+          data: pothole_v8.yaml
+          epochs: 3
+          batch: 4
+          name: yolov8n_v8_3e
+          project: 
+            /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
+          resume: true
+          last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
+    outs:
+    - path: artifacts/training/runs
+      hash: md5
+      md5: 4d073a43973d308c11be9b5b88bfbc56.dir
+      size: 15390121
+      nfiles: 19
+  model_evaluate:
+    cmd: python src/potholeDetector/pipeline/stage_05_validation.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 6bb038ee1d8866faf7c071e58918c075
+      size: 1485
+    - path: src/potholeDetector/pipeline/stage_05_validation.py
+      hash: md5
+      md5: 4881402ab824f424a2277830e679681b
+      size: 1214
+    params:
+      params.yaml:
+        evaluation:
+          task: detect
+          mode: val
+          model: artifacts/training/runs/yolov8n_v8_3e/weights/best.pt
+          imgsz: 1280
+          name: yolov8n_eval
+          project: 
+            /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/validation/runs
+    outs:
+    - path: artifacts/validation/runs
+      hash: md5
+      md5: c120ee913f2f89fa1277968ca725fdeb.dir
+      size: 2807495
+      nfiles: 12
