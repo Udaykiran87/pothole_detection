@@ -1,6 +1,7 @@
 from potholeDetector.entity.config_entity import CustomTrainingConfig  # Import CustomTrainingConfig entity class
 from potholeDetector import logger  # Import the logger module from potholeDetector
 from ultralytics import YOLO  # Import the YOLO class from the ultralytics library
+import os
 
 class CustomTraining:
     def __init__(self, config: CustomTrainingConfig):
@@ -20,7 +21,8 @@ class CustomTraining:
             None
         """
         # Load the YOLOv8 model using the specified model path.
-        model = YOLO(self.config.params_model)
+        model_path = os.path.join(self.config.base_weight_dir, 'model.pt')
+        model = YOLO(model_path)
 
         # Train the YOLOv8 model with the provided training configuration.
         results = model.train(

@@ -43,15 +43,32 @@ class DataValidatorConfig:
 class PrepareBaseModelConfig:
     """
     Data class representing the configuration for preparing the base model.
-
     Attributes:
         root_dir (Path): The root directory path for preparing the base model.
         weights_dir (Path): The directory path to store the downloaded model weights.
         download_url (str): The URL to download the base model weights.
+        task (str): The task for which the model will be used (e.g., object detection).
+        mode (str): The mode of the model preparation (e.g., train, test).
+        model (str): The specific model architecture to use.
+        imgsz (int): The image size used for the model (e.g., 416).
+        data (str): The type of data used for training the model (e.g., coco.yaml).
+        epochs (int): The number of training epochs for the model.
+        batch (int): The batch size used during training.
+        name (str): The name of the model.
     """
     root_dir: Path
     weights_dir: Path
     download_url: str
+    task: str
+    mode: str
+    pre_trained_model: str
+    imgsz: int
+    data: str
+    epochs: int
+    batch: int
+    name: str
+    resume: bool
+    last_saved_model: Path
 
 
 @dataclass(frozen=True)
@@ -78,7 +95,6 @@ class CustomTrainingConfig:
     trained_weights_dir: Path
     params_task: str
     params_mode: str
-    params_model: Path
     params_imgsz: int
     params_data: Path
     params_epochs: int

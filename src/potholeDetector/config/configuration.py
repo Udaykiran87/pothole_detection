@@ -73,13 +73,15 @@ class ConfigurationManager:
     def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
         """
         Get the configuration for preparing the base model.
-
         Returns:
             PrepareBaseModelConfig: An instance of PrepareBaseModelConfig containing the configuration for
             preparing the base model.
         """
         # Retrieve the configuration for preparing the base model from the main configuration
         config = self.config.prepare_base_model
+
+        # Retrieve the parameters for training from the main parameters
+        params = self.params.training
 
         # Create the required directories if they do not exist
         create_directories([config.root_dir, config.weights_dir])
@@ -89,6 +91,16 @@ class ConfigurationManager:
             root_dir=Path(config.root_dir),
             weights_dir=Path(config.weights_dir),
             download_url=config.download_url,
+            task=params.task,
+            mode=params.mode,
+            pre_trained_model=params.pre_trained_model,
+            imgsz=params.imgsz,
+            data=params.data,
+            epochs=params.epochs,
+            batch=params.batch,
+            name=params.name,
+            resume=params.resume,
+            last_saved_model=params.last_saved_model
         )
 
         # Return the PrepareBaseModelConfig instance
@@ -120,7 +132,6 @@ class ConfigurationManager:
             trained_weights_dir=Path(config_training.trained_model_dir),
             params_task=params.task,
             params_mode=params.mode,
-            params_model=params.model,
             params_imgsz=params.imgsz,
             params_data=Path(params.data),
             params_epochs=params.epochs,
