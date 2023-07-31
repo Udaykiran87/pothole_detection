@@ -1,22 +1,5 @@
 schema: '2.0'
 stages:
-  data_ingestion:
-    cmd: python src/potholeDetector/pipeline/stage_01_data_ingestion.py
-    deps:
-    - path: config/config.yaml
-      hash: md5
-      md5: 6bb038ee1d8866faf7c071e58918c075
-      size: 1485
-    - path: src/potholeDetector/pipeline/stage_01_data_ingestion.py
-      hash: md5
-      md5: b5a68f1619c86d8cbf5e88200dc8942b
-      size: 1344
-    outs:
-    - path: artifacts/data_ingestion/dataset
-      hash: md5
-      md5: be1d7e05e70b8f9059f77bb3c2b447e0.dir
-      size: 2678055890
-      nfiles: 15541
   data_validation:
     cmd: python src/potholeDetector/pipeline/stage_02_data_validation.py
     deps:
