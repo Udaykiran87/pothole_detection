@@ -1,0 +1,4 @@
+[core]
+    remote = pothole_remote
+['remote "pothole_remote"']
+    url = /home/uday/DVC_remote_storage/pothole
