@@ -14,9 +14,9 @@ stages:
     outs:
     - path: artifacts/data_ingestion/dataset
       hash: md5
-      md5: be1d7e05e70b8f9059f77bb3c2b447e0.dir
-      size: 2678055890
-      nfiles: 15541
+      md5: b55f056436d5c8e69629ec1ca28082fd.dir
+      size: 2676778872
+      nfiles: 15539
   data_validation:
     cmd: python src/potholeDetector/pipeline/stage_02_data_validation.py
     deps:
