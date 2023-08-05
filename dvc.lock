@@ -57,18 +57,18 @@ stages:
           pre_trained_model: yolov8n.pt
           imgsz: 1280
           data: pothole_v8.yaml
-          epochs: 3
+          epochs: 4
           batch: 4
           name: yolov8n_v8_3e
           project: 
             /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
-          resume: true
+          resume: false
           last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
     outs:
     - path: artifacts/prepare_base_model/weights
       hash: md5
-      md5: 7d690bc32ecb163787f0cc3e8c7b9166.dir
-      size: 36711095
+      md5: 653d5c9913437ae8328a008be71ec714.dir
+      size: 6534387
       nfiles: 1
   custom_training:
     cmd: python src/potholeDetector/pipeline/stage_04_custom_training.py
@@ -89,19 +89,19 @@ stages:
           pre_trained_model: yolov8n.pt
           imgsz: 1280
           data: pothole_v8.yaml
-          epochs: 3
+          epochs: 4
           batch: 4
           name: yolov8n_v8_3e
           project: 
             /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
-          resume: true
+          resume: false
           last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
     outs:
     - path: artifacts/training/runs
       hash: md5
-      md5: 4d073a43973d308c11be9b5b88bfbc56.dir
-      size: 15390121
-      nfiles: 19
+      md5: 6448c46ab1a57dfa2fadd597657b1a2d.dir
+      size: 16580394
+      nfiles: 22
   model_evaluate:
     cmd: python src/potholeDetector/pipeline/stage_05_validation.py
     deps:
