@@ -14,17 +14,17 @@ stages:
     outs:
     - path: artifacts/data_ingestion/dataset
       hash: md5
-      md5: b55f056436d5c8e69629ec1ca28082fd.dir
-      size: 2676778872
-      nfiles: 15539
+      md5: bf910a96b14c69c637c4a5d543996179.dir
+      size: 2679337917
+      nfiles: 15541
   data_validation:
     cmd: python src/potholeDetector/pipeline/stage_02_data_validation.py
     deps:
     - path: artifacts/data_ingestion/dataset
       hash: md5
-      md5: b55f056436d5c8e69629ec1ca28082fd.dir
-      size: 2676778872
-      nfiles: 15539
+      md5: bf910a96b14c69c637c4a5d543996179.dir
+      size: 2679337917
+      nfiles: 15541
     - path: config/config.yaml
       hash: md5
       md5: 6bb038ee1d8866faf7c071e58918c075
@@ -38,9 +38,9 @@ stages:
     deps:
     - path: artifacts/data_ingestion/dataset
       hash: md5
-      md5: b55f056436d5c8e69629ec1ca28082fd.dir
-      size: 2676778872
-      nfiles: 15539
+      md5: bf910a96b14c69c637c4a5d543996179.dir
+      size: 2679337917
+      nfiles: 15541
     - path: config/config.yaml
       hash: md5
       md5: 6bb038ee1d8866faf7c071e58918c075
