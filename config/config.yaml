@@ -33,3 +33,4 @@ training:
 validation:
   root_dir: artifacts/validation  # Root directory for validation artifacts
   validation_results_dir: artifacts/validation/runs # Validation directory
+  weights_dir: artifacts/validation/weights # Validation directory to store final weights

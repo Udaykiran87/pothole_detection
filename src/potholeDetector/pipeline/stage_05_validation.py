@@ -20,6 +20,9 @@ class EvaluationPipeline:
         # Perform validation steps
         validation.val()
 
+        # Copy final model weight to specific directory
+        validation.copy_final_model_weight(config)        
+
 if __name__ == '__main__':
     try:
         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")

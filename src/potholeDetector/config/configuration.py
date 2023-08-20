@@ -162,7 +162,8 @@ class ConfigurationManager:
         create_directories([
             self.config.artifacts_root, 
             config_validation.root_dir, 
-            config_validation.validation_results_dir
+            config_validation.validation_results_dir,
+            config_validation.weights_dir
         ])
 
         # Create an instance of ValidationConfig with the retrieved configuration

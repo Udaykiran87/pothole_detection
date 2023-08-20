@@ -4,17 +4,17 @@ training:
   pre_trained_model: yolov8n.pt  # Pre-trained model to use as a starting point
   imgsz: 1280  # Image size used for training
   data: pothole_v8.yaml  # Data YAML file used for training
-  epochs: 4  # Number of training epochs
-  batch: 4  # Batch size for training
-  name: yolov8n_v8_3e  # Name for the trained model
+  epochs: 50  # Number of training epochs
+  batch: 8  # Batch size for training
+  name: yolov8n_v8_50e  # Name for the trained model
   project: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs  # Project directory for saving training results
   resume: False  # Whether to resume training from the last checkpoint
-  last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt  # Path to the last saved model checkpoint
+  last_saved_model: artifacts/training/runs/yolov8n_v8_50e/weights/last.pt  # Path to the last saved model checkpoint
 
 evaluation:
   task: detect  # Evaluation task, e.g., "detect"
   mode: val  # Evaluation mode, e.g., "val"
-  model: artifacts/training/runs/yolov8n_v8_3e/weights/best.pt  # Path to the best model checkpoint for evaluation
+  model: artifacts/training/runs/yolov8n_v8_50e/weights/best.pt  # Path to the best model checkpoint for evaluation
   imgsz: 1280  # Image size used for evaluation
   name: yolov8n_eval  # Name for the evaluation results
   project: /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/validation/runs  # Project directory for saving evaluation results

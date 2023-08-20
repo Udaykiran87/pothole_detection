@@ -57,13 +57,13 @@ stages:
           pre_trained_model: yolov8n.pt
           imgsz: 1280
           data: pothole_v8.yaml
-          epochs: 4
-          batch: 4
-          name: yolov8n_v8_3e
+          epochs: 50
+          batch: 8
+          name: yolov8n_v8_50e
           project: 
             /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
           resume: false
-          last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
+          last_saved_model: artifacts/training/runs/yolov8n_v8_50e/weights/last.pt
     outs:
     - path: artifacts/prepare_base_model/weights
       hash: md5
@@ -89,19 +89,19 @@ stages:
           pre_trained_model: yolov8n.pt
           imgsz: 1280
           data: pothole_v8.yaml
-          epochs: 4
-          batch: 4
-          name: yolov8n_v8_3e
+          epochs: 50
+          batch: 8
+          name: yolov8n_v8_50e
           project: 
             /home/uday/Practise/github_personal/pothole_detection/pothole_detection/artifacts/training/runs
           resume: false
-          last_saved_model: artifacts/training/runs/yolov8n_v8_3e/weights/last.pt
+          last_saved_model: artifacts/training/runs/yolov8n_v8_50e/weights/last.pt
     outs:
     - path: artifacts/training/runs
       hash: md5
-      md5: 6448c46ab1a57dfa2fadd597657b1a2d.dir
-      size: 16580394
-      nfiles: 22
+      md5: 6f4f4ad1ea0ce390bb1a81359184201a.dir
+      size: 18693880
+      nfiles: 25
   model_evaluate:
     cmd: python src/potholeDetector/pipeline/stage_05_validation.py
     deps:
@@ -118,7 +118,7 @@ stages:
         evaluation:
           task: detect
           mode: val
-          model: artifacts/training/runs/yolov8n_v8_3e/weights/best.pt
+          model: artifacts/training/runs/yolov8n_v8_50e/weights/best.pt
           imgsz: 1280
           name: yolov8n_eval
           project: 
@@ -126,6 +126,6 @@ stages:
     outs:
     - path: artifacts/validation/runs
       hash: md5
-      md5: c120ee913f2f89fa1277968ca725fdeb.dir
-      size: 2807495
+      md5: 20323605eb80cf2e343501069e05cf42.dir
+      size: 2864675
       nfiles: 12
