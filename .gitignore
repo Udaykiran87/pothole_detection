@@ -160,7 +160,6 @@ cython_debug/
 #.idea/
 
 
-# artifacts folder
-artifacts/*
-!artifacts/**/*.dvc
+# Ignore contents of artifacts/ but allow the directory
+artifacts/
 /YOLOv8

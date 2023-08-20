@@ -1,0 +1,5 @@
+outs:
+- md5: 53374ec166a181ebdece2e45eeb7bc8f
+  size: 6304686
+  hash: md5
+  path: final_weight.pt
