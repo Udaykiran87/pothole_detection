@@ -162,5 +162,5 @@ cython_debug/
 
 # artifacts folder
 artifacts/*
-!artifacts/*.dvc
+!artifacts/**/*.dvc
 /YOLOv8
